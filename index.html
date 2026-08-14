@@ -40,15 +40,45 @@
 
       <div class="nav-actions">
         <button class="sample-bag-btn" onclick="openModal('sample-bag-modal')">
-          <i class="fa-solid fa-layer-group"></i> Sample Bag
+          <i class="fa-solid fa-layer-group"></i> <span>Sample Bag</span>
           <span class="sample-count">0</span>
         </button>
         <a href="visualizer.html" class="btn btn-gold" style="padding: 10px 18px; font-size: 0.8rem;">
           Try Visualizer
         </a>
+        <button class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="brand-logo">
+        <span class="logo-main">AMARA LIVING</span>
+        <span class="logo-sub">CRAFTING LUXURY SPACES</span>
+      </a>
+      <button class="modal-close" style="position: static;" onclick="closeMobileMenu()">&times;</button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="index.html" class="active"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="index.html#audience-matrix"><i class="fa-solid fa-users"></i> Audience Solutions</a></li>
+      <li><a href="catalog.html"><i class="fa-solid fa-table-cells"></i> Collections & Specs</a></li>
+      <li><a href="trade-portal.html"><i class="fa-solid fa-briefcase"></i> Trade Portal (B2B)</a></li>
+      <li><a href="visualizer.html" style="color: var(--accent-gold);"><i class="fa-solid fa-cube"></i> 3D Room Visualizer</a></li>
+      <li><a href="index.html#showrooms"><i class="fa-solid fa-location-dot"></i> Experience Centers</a></li>
+    </ul>
+    <div class="mobile-nav-actions">
+      <a href="visualizer.html" class="btn btn-gold" style="width: 100%;">
+        <i class="fa-solid fa-vr-cardboard"></i> Launch 3D Visualizer
+      </a>
+      <button class="btn btn-dark" style="width: 100%;" onclick="openModal('sample-bag-modal'); closeMobileMenu();">
+        <i class="fa-solid fa-layer-group"></i> View Sample Bag (<span class="sample-count">0</span>)
+      </button>
+    </div>
+  </div>
 
   <!-- HERO SECTION -->
   <section class="hero-section">
@@ -430,11 +460,11 @@
       <div id="sample-bag-list"></div>
       
       <form onsubmit="event.preventDefault(); alert('Sample Request Submitted! Our dispatch team will deliver your swatch box within 48 hours.'); closeModal('sample-bag-modal');" style="border-top: 1px solid var(--glass-border); padding-top: 20px;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+        <div class="modal-form-grid">
           <input type="text" placeholder="Full Name *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
           <input type="email" placeholder="Professional Email *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
         </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+        <div class="modal-form-grid">
           <select required style="background: #1c1e24; border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
             <option value="">Select Profession *</option>
             <option value="architect">Architect / Specifier</option>
@@ -461,11 +491,11 @@
       <p style="margin-bottom: 20px;">Book a 1-on-1 walk-through with our material curators at Chennai or Madurai.</p>
       
       <form onsubmit="event.preventDefault(); alert('VIP Appointment Request Confirmed! Our showroom manager will contact you shortly.'); closeModal('consultation-modal');">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+        <div class="modal-form-grid">
           <input type="text" placeholder="Full Name *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
           <input type="tel" placeholder="Phone Number *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
         </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+        <div class="modal-form-grid">
           <select required style="background: #1c1e24; border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
             <option value="chennai">Chennai Flagship (Cathedral Rd)</option>
             <option value="madurai">Madurai Experience Center (KK Nagar)</option>
@@ -488,11 +518,11 @@
       <p style="margin-bottom: 20px;">Download complete DWG, Revit 3D objects, and ASTM/ISO technical compliance certificates.</p>
       
       <form onsubmit="event.preventDefault(); alert('Architectural Specs Pack (.ZIP) download started! Check your downloads folder.'); closeModal('architect-pack-modal');">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+        <div class="modal-form-grid">
           <input type="text" placeholder="Architect Name *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
           <input type="text" placeholder="Firm / Practice Name *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
         </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+        <div class="modal-form-grid">
           <input type="email" placeholder="Work Email *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
           <select style="background: #1c1e24; border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
             <option value="dwg">Autodesk DWG / CAD</option>
@@ -517,11 +547,11 @@
       <p style="margin-bottom: 20px;">Partner with Amara Living for factory-direct container shipments and showroom display racks.</p>
       
       <form onsubmit="event.preventDefault(); alert('Trade Partnership Request Received! Our wholesale division will contact you within 24 hours.'); closeModal('dealer-modal');">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+        <div class="modal-form-grid">
           <input type="text" placeholder="Contact Person *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
           <input type="text" placeholder="Company / Showroom Name *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
         </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+        <div class="modal-form-grid">
           <input type="text" placeholder="City & Region *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
           <input type="tel" placeholder="Phone Number *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
         </div>
