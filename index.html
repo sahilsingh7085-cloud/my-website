@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amara Living — Crafting Luxury Spaces | Tiles, Granite & Furniture</title>
+  <meta name="description" content="Amara Living specializes in luxury tiles, natural granites, marbles, and custom handcrafted furniture for architects, interior designers, dealers, and homeowners.">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div style="background: #08080a; border-bottom: 1px solid var(--glass-border); padding: 8px 0; font-size: 0.78rem; text-align: center; color: var(--text-dark-secondary);">
+    <span style="color: var(--accent-gold); font-weight: 700;">EST. 2010</span> — CRAFTING LUXURY SPACES FOR 16+ YEARS &nbsp;|&nbsp; 📍 SHOWROOMS IN CHENNAI & MADURAI &nbsp;|&nbsp; 🇮🇹 🇧🇷 GLOBAL QUARRY SOURCING
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <span class="logo-main">AMARA LIVING</span>
+        <span class="logo-sub">CRAFTING LUXURY SPACES</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="#audience-matrix">Audience Solutions</a></li>
+          <li><a href="catalog.html">Collections</a></li>
+          <li><a href="trade-portal.html">Trade Portal</a></li>
+          <li><a href="visualizer.html" style="color: var(--accent-gold); font-weight: 700;"><i class="fa-solid fa-cube"></i> 3D Room Visualizer</a></li>
+          <li><a href="#showrooms">Experience Centers</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="sample-bag-btn" onclick="openModal('sample-bag-modal')">
+          <i class="fa-solid fa-layer-group"></i> Sample Bag
+          <span class="sample-count">0</span>
+        </button>
+        <a href="visualizer.html" class="btn btn-gold" style="padding: 10px 18px; font-size: 0.8rem;">
+          Try Visualizer
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content-grid">
+        <div>
+          <div class="hero-tag">
+            <span class="badge">ESTABLISHED 2010 • LUXURY SURFACES & FURNITURE</span>
+          </div>
+          <h1 class="hero-title">
+            Crafting Spaces That Endure — <span>Tiles, Granite & Furniture</span>
+          </h1>
+          <p class="hero-description">
+            Tailored material solutions presenting engineered porcelain tiles, exotic natural granite slabs, and handcrafted timber furniture directly to architects, designers, trade dealers, and discerning homeowners.
+          </p>
+          <div class="hero-actions">
+            <a href="catalog.html" class="btn btn-gold">
+              Explore Product Catalog &nbsp;<i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="visualizer.html" class="btn btn-outline-gold">
+              <i class="fa-solid fa-vr-cardboard"></i> Launch 3D Room Visualizer
+            </a>
+          </div>
+        </div>
+
+        <!-- DYNAMIC AUDIENCE PERSONA CARD -->
+        <div>
+          <div class="persona-context-card" id="persona-dynamic-card">
+            <!-- Rendered by app.js -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUDIENCE SWITCHER STRIP -->
+  <section class="persona-strip-container" id="audience-selector">
+    <div class="container">
+      <div class="persona-strip-title">
+        <i class="fa-solid fa-sliders"></i> Select Your Profession / Requirement To Tailor Your Experience
+      </div>
+      <div class="persona-tabs">
+        <div class="persona-tab active" data-persona="architect" onclick="switchPersona('architect')">
+          <div class="persona-tab-icon"><i class="fa-solid fa-compass-drafting"></i></div>
+          <div class="persona-tab-info">
+            <h4>For Architects</h4>
+            <p>BIM 3D Files & Tech Specs</p>
+          </div>
+        </div>
+
+        <div class="persona-tab" data-persona="designer" onclick="switchPersona('designer')">
+          <div class="persona-tab-icon"><i class="fa-solid fa-palette"></i></div>
+          <div class="persona-tab-info">
+            <h4>Interior Designers</h4>
+            <p>Moodboards & Sample Boxes</p>
+          </div>
+        </div>
+
+        <div class="persona-tab" data-persona="dealer" onclick="switchPersona('dealer')">
+          <div class="persona-tab-icon"><i class="fa-solid fa-store"></i></div>
+          <div class="persona-tab-info">
+            <h4>Dealers & Distributors</h4>
+            <p>Wholesale Tiers & Direct Orders</p>
+          </div>
+        </div>
+
+        <div class="persona-tab" data-persona="homeowner" onclick="switchPersona('homeowner')">
+          <div class="persona-tab-icon"><i class="fa-solid fa-house-chimney-window"></i></div>
+          <div class="persona-tab-info">
+            <h4>Homeowners</h4>
+            <p>3D Visualizer & VIP Tours</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT CATEGORIES OVERVIEW -->
+  <section class="section-padding" style="background: var(--bg-dark);">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge">THREE PILLARS OF CRAFTSMANSHIP</span>
+        <h2>Curated Material Collections</h2>
+        <p>From precision porcelain floor slabs to raw natural granite blocks and hand-tufted Belgian velvet furniture.</p>
+      </div>
+
+      <div class="category-grid">
+        <div class="category-card" onclick="window.location.href='catalog.html?cat=tiles'">
+          <div class="category-card-bg" style="background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80');"></div>
+          <div class="category-card-overlay">
+            <span class="category-card-meta">PRECISION SURFACES</span>
+            <h3 class="category-card-title">Engineered Tiles</h3>
+            <p class="category-card-desc">600x600mm, 800x1600mm, High-Gloss, Bookmatch & R10 Anti-slip floor tiles.</p>
+            <div class="category-card-footer">
+              <span class="category-card-link">View Tile Collection &nbsp;<i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="category-card" onclick="window.location.href='catalog.html?cat=granite'">
+          <div class="category-card-bg" style="background-image: url('https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80');"></div>
+          <div class="category-card-overlay">
+            <span class="category-card-meta">RAW EARTH ELEVATION</span>
+            <h3 class="category-card-title">Natural Granite & Marble</h3>
+            <p class="category-card-desc">Absolute Black Granite, Exotic Quartzite, and Italian Carrara slabs for countertops & facades.</p>
+            <div class="category-card-footer">
+              <span class="category-card-link">View Granite Slabs &nbsp;<i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="category-card" onclick="window.location.href='catalog.html?cat=furniture'">
+          <div class="category-card-bg" style="background-image: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80');"></div>
+          <div class="category-card-overlay">
+            <span class="category-card-meta">HANDCRAFTED LIVING</span>
+            <h3 class="category-card-title">Bespoke Furniture</h3>
+            <p class="category-card-desc">Kiln-dried hardwood frames, stain-resistant Belgian velvets, and brushed solid brass accents.</p>
+            <div class="category-card-footer">
+              <span class="category-card-link">View Furniture &nbsp;<i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED CATALOG SHOWCASE WITH PERSONA HIGHLIGHTING -->
+  <section class="section-padding" style="background: var(--bg-card-dark); border-top: 1px solid var(--glass-border);">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge">SPECIFICATION & SAMPLE CATALOG</span>
+        <h2>Featured Product Portfolio</h2>
+        <p>Click any product to inspect detailed technical specifications, MOHS hardness scales, or request physical samples.</p>
+      </div>
+
+      <div class="catalog-controls">
+        <div class="filter-pills">
+          <button class="filter-btn active" data-filter="all">All Products</button>
+          <button class="filter-btn" data-filter="tiles">Tiles</button>
+          <button class="filter-btn" data-filter="granite">Granite & Marble</button>
+          <button class="filter-btn" data-filter="furniture">Bespoke Furniture</button>
+        </div>
+        <a href="catalog.html" class="btn btn-outline-gold" style="font-size: 0.8rem;">
+          View Full 200+ Item Catalog &nbsp;<i class="fa-solid fa-external-link"></i>
+        </a>
+      </div>
+
+      <!-- Rendered dynamically by app.js -->
+      <div class="product-grid" id="product-grid-container"></div>
+    </div>
+  </section>
+
+  <!-- AUDIENCE PERSONA MATRIX SECTION -->
+  <section class="section-padding matrix-section" id="audience-matrix">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge">TAILORED SOLUTIONS FOR EVERY STAKEHOLDER</span>
+        <h2>How Amara Living Serves Your Needs</h2>
+        <p>A structured approach built over 16+ years to empower architects, designers, trade partners, and homeowners.</p>
+      </div>
+
+      <div class="persona-grid">
+        <!-- Persona Card 1: Architects -->
+        <div class="persona-card">
+          <div class="persona-card-header">
+            <div class="persona-icon-large"><i class="fa-solid fa-compass-drafting"></i></div>
+            <div>
+              <h3>For Architects</h3>
+              <p>Technical Rigor & BIM Compliance</p>
+            </div>
+          </div>
+          <ul class="persona-bullets">
+            <li><i class="fa-solid fa-check"></i> Complete DWG, CAD & Revit BIM 3D Library for spatial modeling</li>
+            <li><i class="fa-solid fa-check"></i> Certified MOHS Hardness (7.0 - 8.5) & Water Absorption (&lt;0.03%)</li>
+            <li><i class="fa-solid fa-check"></i> Slip Resistance Ratings (R9 - R11) for high-traffic commercial zones</li>
+            <li><i class="fa-solid fa-check"></i> Technical facade cladding consultation & structural load sheets</li>
+          </ul>
+          <a href="trade-portal.html?persona=architect" class="btn btn-outline-gold" style="width: 100%; font-size: 0.8rem;">
+            Access Architectural Portal &nbsp;<i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- Persona Card 2: Designers -->
+        <div class="persona-card">
+          <div class="persona-card-header">
+            <div class="persona-icon-large" style="color: var(--persona-designer); background: rgba(214, 112, 172, 0.1); border-color: rgba(214, 112, 172, 0.3);">
+              <i class="fa-solid fa-palette"></i>
+            </div>
+            <div>
+              <h3>For Interior Designers</h3>
+              <p>Creative Customization & Swatches</p>
+            </div>
+          </div>
+          <ul class="persona-bullets">
+            <li><i class="fa-solid fa-check"></i> Complimentary 48-Hour Studio Sample Box delivery</li>
+            <li><i class="fa-solid fa-check"></i> End-to-end finishes: High Gloss, Silk Matte, Leathered 3D & Bookmatch</li>
+            <li><i class="fa-solid fa-check"></i> Bespoke furniture upholstery customization with Belgian fabrics</li>
+            <li><i class="fa-solid fa-check"></i> Exclusive Designer Trade Discount Program (up to 25% margin)</li>
+          </ul>
+          <button class="btn btn-outline-gold" style="width: 100%; font-size: 0.8rem;" onclick="openModal('sample-bag-modal')">
+            Order Designer Swatch Box &nbsp;<i class="fa-solid fa-box"></i>
+          </button>
+        </div>
+
+        <!-- Persona Card 3: Dealers & Distributors -->
+        <div class="persona-card">
+          <div class="persona-card-header">
+            <div class="persona-icon-large" style="color: var(--persona-dealer); background: rgba(230, 126, 34, 0.1); border-color: rgba(230, 126, 34, 0.3);">
+              <i class="fa-solid fa-store"></i>
+            </div>
+            <div>
+              <h3>For Dealers & Distributors</h3>
+              <p>Volume Discounts & Direct Logistics</p>
+            </div>
+          </div>
+          <ul class="persona-bullets">
+            <li><i class="fa-solid fa-check"></i> Factory-direct FOB container pricing with transparent lead times</li>
+            <li><i class="fa-solid fa-check"></i> Free showroom tile display racks and branded display stands</li>
+            <li><i class="fa-solid fa-check"></i> Regionally protected dealership territories with co-marketing funds</li>
+            <li><i class="fa-solid fa-check"></i> Export packing standards with shrink-wrapped wooden crates</li>
+          </ul>
+          <a href="trade-portal.html?persona=dealer" class="btn btn-outline-gold" style="width: 100%; font-size: 0.8rem;">
+            Request Trade Wholesale List &nbsp;<i class="fa-solid fa-file-invoice"></i>
+          </a>
+        </div>
+
+        <!-- Persona Card 4: Homeowners -->
+        <div class="persona-card">
+          <div class="persona-card-header">
+            <div class="persona-icon-large" style="color: var(--persona-homeowner); background: rgba(46, 204, 113, 0.1); border-color: rgba(46, 204, 113, 0.3);">
+              <i class="fa-solid fa-house-chimney-window"></i>
+            </div>
+            <div>
+              <h3>For Homeowners</h3>
+              <p>3D Visualization & VIP Guidance</p>
+            </div>
+          </div>
+          <ul class="persona-bullets">
+            <li><i class="fa-solid fa-check"></i> Interactive 3D Room Visualizer tool to see tiles & granite in real settings</li>
+            <li><i class="fa-solid fa-check"></i> Guided VIP private walkthroughs at Chennai & Madurai Experience Centers</li>
+            <li><i class="fa-solid fa-check"></i> Comprehensive lifetime durability guarantee on natural granite slabs</li>
+            <li><i class="fa-solid fa-check"></i> Instant WhatsApp assistance with our senior design consultants</li>
+          </ul>
+          <a href="visualizer.html" class="btn btn-gold" style="width: 100%; font-size: 0.8rem;">
+            Launch Room Visualizer &nbsp;<i class="fa-solid fa-vr-cardboard"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOWROOMS & EXPERIENCE CENTERS -->
+  <section class="section-padding" style="background: var(--bg-dark);" id="showrooms">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge">PHYSICAL TOUCHPOINTS</span>
+        <h2>Experience Centers & Showrooms</h2>
+        <p>Touch, feel, and inspect our full scale slabs and furniture mock-ups at our Flagship Experience Centers.</p>
+      </div>
+
+      <div class="experience-grid">
+        <!-- Chennai Showroom -->
+        <div class="experience-card">
+          <div class="experience-location">
+            <i class="fa-solid fa-location-dot location-icon"></i>
+            <div>
+              <h3 style="color: #fff; font-size: 1.6rem;">Chennai Flagship Showroom</h3>
+              <p style="font-size: 0.9rem; margin-top: 4px;">No. 42, Cathedral Road, Gopalapuram, Chennai, Tamil Nadu 600086</p>
+            </div>
+          </div>
+          <div style="font-size: 0.88rem; color: var(--text-dark-secondary); margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px;">
+            <div><i class="fa-solid fa-clock" style="color: var(--accent-gold);"></i> Mon - Sat: 9:30 AM - 8:00 PM</div>
+            <div><i class="fa-solid fa-phone" style="color: var(--accent-gold);"></i> +91 44 2811 0900</div>
+            <div><i class="fa-solid fa-envelope" style="color: var(--accent-gold);"></i> sales@amaraliv.com</div>
+          </div>
+          <button class="btn btn-outline-gold" style="width: 100%; font-size: 0.8rem;" onclick="openModal('consultation-modal')">
+            Book VIP Appointment &nbsp;<i class="fa-solid fa-calendar-check"></i>
+          </button>
+        </div>
+
+        <!-- Madurai Showroom -->
+        <div class="experience-card">
+          <div class="experience-location">
+            <i class="fa-solid fa-location-dot location-icon"></i>
+            <div>
+              <h3 style="color: #fff; font-size: 1.6rem;">Madurai Experience Center</h3>
+              <p style="font-size: 0.9rem; margin-top: 4px;">Plot 18, KK Nagar Main Road, Near Arch, Madurai, Tamil Nadu 625020</p>
+            </div>
+          </div>
+          <div style="font-size: 0.88rem; color: var(--text-dark-secondary); margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px;">
+            <div><i class="fa-solid fa-clock" style="color: var(--accent-gold);"></i> Mon - Sat: 10:00 AM - 7:30 PM</div>
+            <div><i class="fa-solid fa-phone" style="color: var(--accent-gold);"></i> +91 452 2588 120</div>
+            <div><i class="fa-solid fa-envelope" style="color: var(--accent-gold);"></i> madurai@amaraliv.com</div>
+          </div>
+          <button class="btn btn-outline-gold" style="width: 100%; font-size: 0.8rem;" onclick="openModal('consultation-modal')">
+            Book VIP Appointment &nbsp;<i class="fa-solid fa-calendar-check"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="brand-logo" style="margin-bottom: 16px;">
+            <span class="logo-main" style="font-size: 1.5rem;">AMARA LIVING</span>
+            <span class="logo-sub">CRAFTING LUXURY SPACES</span>
+          </a>
+          <p style="font-size: 0.88rem; max-width: 320px; margin-bottom: 20px;">
+            Established in 2010. Amara Living is a premier manufacturer and distributor of luxury ceramic tiles, natural granites, and bespoke furniture.
+          </p>
+          <div style="display: flex; gap: 14px; color: var(--accent-gold); font-size: 1.2rem;">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Collections</h4>
+          <ul class="footer-links">
+            <li><a href="catalog.html?cat=tiles">Precision Tiles</a></li>
+            <li><a href="catalog.html?cat=granite">Natural Granite Slabs</a></li>
+            <li><a href="catalog.html?cat=granite">Exotic Quartzite</a></li>
+            <li><a href="catalog.html?cat=furniture">Bespoke Furniture</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Stakeholder Hub</h4>
+          <ul class="footer-links">
+            <li><a href="trade-portal.html?persona=architect">Architects & Specifiers</a></li>
+            <li><a href="trade-portal.html?persona=designer">Interior Designer Swatches</a></li>
+            <li><a href="trade-portal.html?persona=dealer">Distributor Network</a></li>
+            <li><a href="visualizer.html">3D Room Visualizer</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Trade Contact</h4>
+          <p style="font-size: 0.85rem; margin-bottom: 12px;">Direct Factory & B2B Inquiries:</p>
+          <p style="color: var(--accent-gold); font-weight: 600; font-size: 0.95rem; margin-bottom: 8px;">sales@amaraliv.com</p>
+          <p style="font-size: 0.85rem;">GSTIN: 33AAAC7812B1Z4</p>
+          <p style="font-size: 0.85rem;">ISO 9001:2015 Certified Manufacturing</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 Amara Living. All Rights Reserved. Track 1 & Track 2 Internship Submission.</span>
+        <div style="display: flex; gap: 20px;">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Specification</a>
+          <a href="#">BIM License</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODALS -->
+
+  <!-- Product Quickview Modal -->
+  <div class="modal-overlay" id="product-modal">
+    <div class="modal-container">
+      <button class="modal-close" onclick="closeModal('product-modal')">&times;</button>
+      <div id="product-quickview-content"></div>
+    </div>
+  </div>
+
+  <!-- Sample Bag Modal -->
+  <div class="modal-overlay" id="sample-bag-modal">
+    <div class="modal-container">
+      <button class="modal-close" onclick="closeModal('sample-bag-modal')">&times;</button>
+      <span class="badge" style="margin-bottom: 10px;">COMPLIMENTARY SPECIMEN BOX</span>
+      <h2 style="font-size: 2rem; color: #fff; margin-bottom: 16px;">Your Sample Request Kit</h2>
+      <div id="sample-bag-list"></div>
+      
+      <form onsubmit="event.preventDefault(); alert('Sample Request Submitted! Our dispatch team will deliver your swatch box within 48 hours.'); closeModal('sample-bag-modal');" style="border-top: 1px solid var(--glass-border); padding-top: 20px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+          <input type="text" placeholder="Full Name *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
+          <input type="email" placeholder="Professional Email *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+          <select required style="background: #1c1e24; border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
+            <option value="">Select Profession *</option>
+            <option value="architect">Architect / Specifier</option>
+            <option value="designer">Interior Designer</option>
+            <option value="dealer">Dealer / Distributor</option>
+            <option value="homeowner">Homeowner</option>
+          </select>
+          <input type="tel" placeholder="Phone Number *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
+        </div>
+        <textarea placeholder="Delivery Address & Project Notes..." rows="3" required style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px; margin-bottom: 16px;"></textarea>
+        <button type="submit" class="btn btn-gold" style="width: 100%;">
+          Dispatch Express Sample Kit &nbsp;<i class="fa-solid fa-truck-fast"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Consultation / VIP Tour Modal -->
+  <div class="modal-overlay" id="consultation-modal">
+    <div class="modal-container">
+      <button class="modal-close" onclick="closeModal('consultation-modal')">&times;</button>
+      <span class="badge" style="margin-bottom: 10px;">FLAGSHIP EXPERIENCE CENTER</span>
+      <h2 style="font-size: 2rem; color: #fff; margin-bottom: 16px;">Schedule VIP Consultation</h2>
+      <p style="margin-bottom: 20px;">Book a 1-on-1 walk-through with our material curators at Chennai or Madurai.</p>
+      
+      <form onsubmit="event.preventDefault(); alert('VIP Appointment Request Confirmed! Our showroom manager will contact you shortly.'); closeModal('consultation-modal');">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+          <input type="text" placeholder="Full Name *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
+          <input type="tel" placeholder="Phone Number *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+          <select required style="background: #1c1e24; border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
+            <option value="chennai">Chennai Flagship (Cathedral Rd)</option>
+            <option value="madurai">Madurai Experience Center (KK Nagar)</option>
+          </select>
+          <input type="date" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
+        </div>
+        <button type="submit" class="btn btn-gold" style="width: 100%;">
+          Confirm Appointment &nbsp;<i class="fa-solid fa-calendar-check"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Architect Specs Pack Download Modal -->
+  <div class="modal-overlay" id="architect-pack-modal">
+    <div class="modal-container">
+      <button class="modal-close" onclick="closeModal('architect-pack-modal')">&times;</button>
+      <span class="badge" style="margin-bottom: 10px;">ARCHITECTURAL & SPECIFIER SUITE</span>
+      <h2 style="font-size: 2rem; color: #fff; margin-bottom: 16px;">Architectural BIM & Tech Pack</h2>
+      <p style="margin-bottom: 20px;">Download complete DWG, Revit 3D objects, and ASTM/ISO technical compliance certificates.</p>
+      
+      <form onsubmit="event.preventDefault(); alert('Architectural Specs Pack (.ZIP) download started! Check your downloads folder.'); closeModal('architect-pack-modal');">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+          <input type="text" placeholder="Architect Name *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
+          <input type="text" placeholder="Firm / Practice Name *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+          <input type="email" placeholder="Work Email *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
+          <select style="background: #1c1e24; border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
+            <option value="dwg">Autodesk DWG / CAD</option>
+            <option value="rvt">Revit BIM (.RVT)</option>
+            <option value="pbr">4K PBR Textures (.ZIP)</option>
+            <option value="all">Complete Architectural Bundle</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-gold" style="width: 100%;">
+          Download Specs Bundle (.ZIP) &nbsp;<i class="fa-solid fa-download"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dealer Partnership Modal -->
+  <div class="modal-overlay" id="dealer-modal">
+    <div class="modal-container">
+      <button class="modal-close" onclick="closeModal('dealer-modal')">&times;</button>
+      <span class="badge" style="margin-bottom: 10px;">TRADE & DISTRIBUTOR NETWORK</span>
+      <h2 style="font-size: 2rem; color: #fff; margin-bottom: 16px;">Apply For Dealership</h2>
+      <p style="margin-bottom: 20px;">Partner with Amara Living for factory-direct container shipments and showroom display racks.</p>
+      
+      <form onsubmit="event.preventDefault(); alert('Trade Partnership Request Received! Our wholesale division will contact you within 24 hours.'); closeModal('dealer-modal');">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+          <input type="text" placeholder="Contact Person *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
+          <input type="text" placeholder="Company / Showroom Name *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+          <input type="text" placeholder="City & Region *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
+          <input type="tel" placeholder="Phone Number *" required style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; color: #fff; border-radius: 4px;">
+        </div>
+        <button type="submit" class="btn btn-gold" style="width: 100%;">
+          Submit Wholesale Request &nbsp;<i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

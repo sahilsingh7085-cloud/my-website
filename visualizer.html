@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Room Visualizer — Amara Living</title>
+  <meta name="description" content="Amara Living 3D Room Visualizer. Preview furniture models and luxury marble & porcelain floor tiles with 1-click HD photo switching.">
+  
+  <!-- FontAwesome & Master Stylesheet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  
+  <style>
+    :root {
+      --bg-studio-dark: #050608;
+      --bg-panel-dark: #0f121a;
+      --bg-card-dark: #151924;
+      --border-dark: rgba(255, 255, 255, 0.1);
+      --border-gold: rgba(212, 175, 55, 0.4);
+      --accent-gold: #d4af37;
+      --accent-gold-hover: #e5be48;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-studio-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      overflow: hidden;
+    }
+
+    /* FIX HEADER TOP STACKING */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 75px;
+      z-index: 1000 !important;
+      background: rgba(6, 7, 10, 0.95);
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    /* FULLSTAGE WORKSPACE (100% SHARP ROOM PHOTO VIEW) */
+    .visualizer-full-workspace {
+      position: relative;
+      width: 100vw;
+      height: calc(100vh - 75px);
+      margin-top: 75px;
+      background: #040507;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* 100% SHARP HD ROOM PHOTO (ZERO BLUR, ZERO OVERLAY MASKS) */
+    .pure-room-hd-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: opacity 0.3s ease;
+      filter: none !important;
+      backdrop-filter: none !important;
+    }
+
+    /* COMPACT TOP-RIGHT FLOATING CONTROL PANEL */
+    .top-right-floating-control-bar {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      z-index: 100;
+      background: rgba(10, 13, 20, 0.94);
+      border: 1px solid var(--border-gold);
+      border-radius: 14px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 25px rgba(212, 175, 55, 0.25);
+      backdrop-filter: blur(14px);
+      width: 340px;
+      transition: all 0.3s ease;
+    }
+
+    .panel-category-tabs {
+      display: flex;
+      background: var(--bg-card-dark);
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      padding: 3px;
+      gap: 4px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 8px 6px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover, .tab-btn.active-tab {
+      background: var(--accent-gold);
+      color: #0b0c0e;
+    }
+
+    .control-section-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .options-vertical-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    .option-item-card {
+      background: var(--bg-card-dark);
+      border: 2px solid var(--border-dark);
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    .option-item-card:hover, .option-item-card.active {
+      border-color: var(--accent-gold);
+      background: rgba(212, 175, 55, 0.15);
+      transform: translateX(-2px);
+    }
+
+    .option-item-card.active::after {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      color: var(--accent-gold);
+      position: absolute;
+      right: 12px;
+      font-size: 0.8rem;
+    }
+
+    .option-thumb-img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid var(--border-dark);
+      flex-shrink: 0;
+    }
+
+    .option-card-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .option-card-sub {
+      font-size: 0.7rem;
+      color: var(--accent-gold);
+      font-weight: 600;
+    }
+
+    .spec-details-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed var(--border-dark);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.76rem;
+    }
+
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 3px;
+    }
+    .spec-row:last-child { margin-bottom: 0; }
+    .spec-key { color: var(--text-muted); }
+    .spec-val { color: #fff; font-weight: 600; }
+
+    .action-btn-group {
+      display: flex;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. HEADER (Logo, Nav, Sample Bag) -->
+  <header class="site-header">
+    <div class="container nav-container" style="height: 75px;">
+      <a href="index.html" class="brand-logo">
+        <span class="logo-main">AMARA LIVING</span>
+        <span class="logo-sub">3D ROOM VISUALIZER</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="catalog.html">Products & Collections</a></li>
+          <li><a href="trade-portal.html">Trade Portal</a></li>
+          <li><a href="visualizer.html" class="active" style="color: var(--accent-gold);"><i class="fa-solid fa-cube"></i> 3D Room Tool</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="sample-bag-btn" onclick="openModal('sample-bag-modal')">
+          <i class="fa-solid fa-layer-group"></i> Sample Bag
+          <span class="sample-count">0</span>
+        </button>
+        <a href="index.html" class="btn btn-outline-gold" style="padding: 8px 16px; font-size: 0.78rem;">
+          Exit Studio
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. FULLSTAGE WORKSPACE (100% SHARP ROOM PHOTO) -->
+  <div class="visualizer-full-workspace">
+    
+    <!-- 100% SHARP HD ROOM IMAGE -->
+    <img src="images/sofa_cream_room.jpg" 
+         id="main-room-photo" 
+         class="pure-room-hd-img" 
+         alt="Amara Living Luxury Room Setting">
+
+    <!-- COMPACT FLOATING PANEL AT TOP-RIGHT -->
+    <div class="top-right-floating-control-bar">
+      
+      <!-- CATEGORY TABS -->
+      <div class="panel-category-tabs">
+        <button class="tab-btn active-tab" id="tab-furniture" onclick="switchVisualizerTab('furniture')">
+          <i class="fa-solid fa-couch"></i> Sofa Models
+        </button>
+        <button class="tab-btn" id="tab-tiles" onclick="switchVisualizerTab('tiles')">
+          <i class="fa-solid fa-border-all"></i> Marble Tiles
+        </button>
+      </div>
+
+      <div class="control-section-label" id="category-section-label">SELECT SOFA MODEL</div>
+
+      <!-- OPTIONS LIST CONTAINER -->
+      <div class="options-vertical-list" id="options-list-container">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- ACTIVE SPECIFICATIONS SUMMARY -->
+      <div class="spec-details-box">
+        <div class="spec-row">
+          <span class="spec-key">Product:</span>
+          <span class="spec-val" id="active-item-name">Amara Cream Teak Sofa</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Finish / Specs:</span>
+          <span class="spec-val" id="active-item-sub">Solid Teak & Cream Cushions</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">Price / Unit:</span>
+          <span class="spec-val" id="active-item-price" style="color: var(--accent-gold);">$850.00 / unit</span>
+        </div>
+      </div>
+
+      <!-- ACTION BUTTONS -->
+      <div class="action-btn-group">
+        <button class="btn btn-gold" style="width: 100%; padding: 8px; font-size: 0.76rem; font-weight: 700;" onclick="addActiveItemToSampleBag()">
+          + Request Swatch
+        </button>
+        <button class="btn btn-outline-gold" style="width: 100%; padding: 8px; font-size: 0.76rem;" onclick="exportItemSpecSheet()">
+          <i class="fa-solid fa-file-pdf"></i> Spec Sheet
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Sample Kit Modal -->
+  <div class="modal-overlay" id="sample-bag-modal">
+    <div class="modal-container">
+      <button class="modal-close" onclick="closeModal('sample-bag-modal')">&times;</button>
+      <span class="badge" style="margin-bottom: 10px;">COMPLIMENTARY SPECIMEN BOX</span>
+      <h2 style="font-size: 2rem; color: #fff; margin-bottom: 16px;">Your Sample Request Kit</h2>
+      <div id="sample-bag-list"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    /* ==========================================================================
+       PURE ROOM PHOTO VISUALIZER ENGINE (SOFAS & MARBLE TILES)
+       ========================================================================== */
+
+    const VISUALIZER_DATA = {
+      furniture: [
+        {
+          id: 'sofa-cream',
+          title: 'Amara Cream Teak Sofa',
+          sub: 'Solid Teak Frame & Natural Cream Cushions',
+          price: '$850.00 / unit',
+          thumb: 'images/sofa_cream_room.jpg',
+          roomImg: 'images/sofa_cream_room.jpg'
+        },
+        {
+          id: 'sofa-emerald',
+          title: 'Emerald Velvet Luxe Sofa',
+          sub: 'Rich Emerald Green Velvet & Teak Legs',
+          price: '$920.00 / unit',
+          thumb: 'images/sofa_emerald_room.jpg',
+          roomImg: 'images/sofa_emerald_room.jpg'
+        },
+        {
+          id: 'sofa-terracotta',
+          title: 'Terracotta Amber Sectional',
+          sub: 'Warm Terracotta Velvet Sectional',
+          price: '$980.00 / unit',
+          thumb: 'images/sofa_terracotta_room.jpg',
+          roomImg: 'images/sofa_terracotta_room.jpg'
+        }
+      ],
+      tiles: [
+        {
+          id: 'tile-01',
+          title: 'Original Calacatta White Marble',
+          sub: 'High-Gloss White Marble Tile (800x1600mm)',
+          price: '$12.50 / sq.ft',
+          thumb: 'images/sofa_emerald_room.jpg',
+          roomImg: 'images/sofa_emerald_room.jpg'
+        },
+        {
+          id: 'tile-02',
+          title: 'Calacatta Gold Veined Marble',
+          sub: 'Warm Gold Calcite Onyx Tile (1200x2400mm)',
+          price: '$14.80 / sq.ft',
+          thumb: 'images/tile_gold_marble_room.jpg',
+          roomImg: 'images/tile_gold_marble_room.jpg'
+        },
+        {
+          id: 'tile-03',
+          title: 'Pietra Grey Basalt Slate',
+          sub: 'Honed Charcoal Slate Tile (600x1200mm)',
+          price: '$11.80 / sq.ft',
+          thumb: 'images/tile_grey_slate_room.jpg',
+          roomImg: 'images/tile_grey_slate_room.jpg'
+        },
+        {
+          id: 'tile-04',
+          title: 'Royal Amber Cream Onyx',
+          sub: 'Warm Amber Mirror Marble Tile (800x1600mm)',
+          price: '$15.20 / sq.ft',
+          thumb: 'images/tile_amber_onyx_room.jpg',
+          roomImg: 'images/tile_amber_onyx_room.jpg'
+        }
+      ]
+    };
+
+    let activeTabKey = 'furniture';
+    let activeItem = VISUALIZER_DATA.furniture[0];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderOptionsList();
+      selectOption(activeItem.id);
+    });
+
+    function switchVisualizerTab(tabKey) {
+      activeTabKey = tabKey;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-tab'));
+      const activeTabBtn = document.getElementById(`tab-${tabKey}`);
+      if (activeTabBtn) activeTabBtn.classList.add('active-tab');
+
+      document.getElementById('category-section-label').textContent = tabKey === 'furniture' ? 'SELECT SOFA MODEL' : 'SELECT MARBLE TILE FINISH';
+
+      renderOptionsList();
+
+      const items = VISUALIZER_DATA[tabKey];
+      if (items.length > 0) {
+        selectOption(items[0].id);
+      }
+    }
+
+    function renderOptionsList() {
+      const container = document.getElementById('options-list-container');
+      const items = VISUALIZER_DATA[activeTabKey];
+
+      container.innerHTML = items.map(item => `
+        <div class="option-item-card ${item.id === activeItem.id ? 'active' : ''}"
+             id="card-${item.id}"
+             onclick="selectOption('${item.id}')">
+          <img src="${item.thumb}" class="option-thumb-img" alt="${item.title}">
+          <div>
+            <div class="option-card-title">${item.title}</div>
+            <div class="option-card-sub">${item.sub}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function selectOption(itemId) {
+      const items = VISUALIZER_DATA[activeTabKey];
+      const item = items.find(i => i.id === itemId) || VISUALIZER_DATA.furniture.find(i => i.id === itemId) || VISUALIZER_DATA.tiles.find(i => i.id === itemId);
+      if (!item) return;
+
+      activeItem = item;
+
+      document.querySelectorAll('.option-item-card').forEach(c => c.classList.remove('active'));
+      const card = document.getElementById(`card-${itemId}`);
+      if (card) card.classList.add('active');
+
+      // Update Main Room Photo (Pure Sharp 1-Click Transition)
+      const mainPhoto = document.getElementById('main-room-photo');
+      if (mainPhoto) {
+        mainPhoto.style.opacity = '0.35';
+        setTimeout(() => {
+          mainPhoto.src = item.roomImg;
+          mainPhoto.style.opacity = '1';
+        }, 150);
+      }
+
+      // Update Spec Details
+      document.getElementById('active-item-name').textContent = item.title;
+      document.getElementById('active-item-sub').textContent = item.sub;
+      document.getElementById('active-item-price').textContent = item.price;
+
+      showToast(`Selected "${item.title}"`);
+    }
+
+    function addActiveItemToSampleBag() {
+      if (typeof addToSampleBag === 'function') {
+        addToSampleBag(activeItem.id);
+      } else {
+        showToast(`Added ${activeItem.title} Swatch to Sample Kit!`);
+      }
+    }
+
+    function exportItemSpecSheet() {
+      const specText = `=================================================\nAMARA LIVING — SPECIFICATION SHEET\n=================================================\n\nProduct Name: ${activeItem.title}\nCategory: ${activeTabKey.toUpperCase()}\nFinish & Texture: ${activeItem.sub}\nUnit Price: ${activeItem.price}\n\nGenerated via Amara Living Visualizer.\n=================================================`;
+      
+      const blob = new Blob([specText], { type: 'text/plain' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `Amara_Living_${activeItem.id}_Spec.txt`;
+      a.click();
+      showToast('Spec sheet downloaded!');
+    }
+  </script>
+</body>
+</html>
