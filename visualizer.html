@@ -206,6 +206,92 @@
       display: flex;
       gap: 8px;
     }
+
+    /* Mobile Drawer / Bottom Sheet & Responsive Workspace */
+    .visualizer-drawer-handle,
+    .visualizer-drawer-header {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .site-header {
+        height: 70px;
+      }
+      .visualizer-full-workspace {
+        height: calc(100vh - 70px);
+        margin-top: 70px;
+      }
+      .top-right-floating-control-bar {
+        position: fixed;
+        bottom: 0;
+        top: auto;
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-height: 78vh;
+        border-radius: 20px 20px 0 0;
+        padding: 12px 18px 24px;
+        background: rgba(10, 13, 20, 0.98);
+        border: 1px solid var(--border-gold);
+        border-bottom: none;
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.95);
+        transform: translateY(0);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 200;
+      }
+
+      .top-right-floating-control-bar.collapsed {
+        transform: translateY(calc(100% - 52px));
+      }
+
+      .visualizer-drawer-handle {
+        display: block;
+        width: 44px;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.35);
+        border-radius: 10px;
+        margin: 0 auto 8px;
+        cursor: pointer;
+      }
+
+      .visualizer-drawer-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        cursor: pointer;
+        padding: 2px 0;
+      }
+
+      .visualizer-drawer-title {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--accent-gold);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .visualizer-drawer-toggle-btn {
+        background: rgba(255,255,255,0.08);
+        border: 1px solid var(--border-gold);
+        color: var(--accent-gold);
+        font-size: 0.85rem;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .options-vertical-list {
+        max-height: 170px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -229,15 +315,45 @@
 
       <div class="nav-actions">
         <button class="sample-bag-btn" onclick="openModal('sample-bag-modal')">
-          <i class="fa-solid fa-layer-group"></i> Sample Bag
+          <i class="fa-solid fa-layer-group"></i> <span>Sample Bag</span>
           <span class="sample-count">0</span>
         </button>
         <a href="index.html" class="btn btn-outline-gold" style="padding: 8px 16px; font-size: 0.78rem;">
           Exit Studio
         </a>
+        <button class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="brand-logo">
+        <span class="logo-main">AMARA LIVING</span>
+        <span class="logo-sub">CRAFTING LUXURY SPACES</span>
+      </a>
+      <button class="modal-close" style="position: static;" onclick="closeMobileMenu()">&times;</button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="index.html#audience-matrix"><i class="fa-solid fa-users"></i> Audience Solutions</a></li>
+      <li><a href="catalog.html"><i class="fa-solid fa-table-cells"></i> Collections & Specs</a></li>
+      <li><a href="trade-portal.html"><i class="fa-solid fa-briefcase"></i> Trade Portal (B2B)</a></li>
+      <li><a href="visualizer.html" class="active" style="color: var(--accent-gold);"><i class="fa-solid fa-cube"></i> 3D Room Visualizer</a></li>
+      <li><a href="index.html#showrooms"><i class="fa-solid fa-location-dot"></i> Experience Centers</a></li>
+    </ul>
+    <div class="mobile-nav-actions">
+      <button class="btn btn-gold" style="width: 100%;" onclick="closeMobileMenu()">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Continue Visualizing
+      </button>
+      <button class="btn btn-dark" style="width: 100%;" onclick="openModal('sample-bag-modal'); closeMobileMenu();">
+        <i class="fa-solid fa-layer-group"></i> View Sample Bag (<span class="sample-count">0</span>)
+      </button>
+    </div>
+  </div>
 
   <!-- 2. FULLSTAGE WORKSPACE (100% SHARP ROOM PHOTO) -->
   <div class="visualizer-full-workspace">
@@ -248,9 +364,20 @@
          class="pure-room-hd-img" 
          alt="Amara Living Luxury Room Setting">
 
-    <!-- COMPACT FLOATING PANEL AT TOP-RIGHT -->
-    <div class="top-right-floating-control-bar">
+    <!-- COMPACT FLOATING PANEL AT TOP-RIGHT (MOBILE BOTTOM-SHEET) -->
+    <div class="top-right-floating-control-bar" id="visualizer-controls-panel">
       
+      <!-- Mobile Drawer Drag Handle & Collapse Header -->
+      <div class="visualizer-drawer-handle" onclick="toggleVisualizerDrawer()"></div>
+      <div class="visualizer-drawer-header" onclick="toggleVisualizerDrawer()">
+        <div class="visualizer-drawer-title">
+          <i class="fa-solid fa-sliders"></i> Customize Room Elements
+        </div>
+        <button class="visualizer-drawer-toggle-btn" aria-label="Toggle Panel">
+          <i class="fa-solid fa-chevron-down" id="drawer-toggle-icon"></i>
+        </button>
+      </div>
+
       <!-- CATEGORY TABS -->
       <div class="panel-category-tabs">
         <button class="tab-btn active-tab" id="tab-furniture" onclick="switchVisualizerTab('furniture')">
@@ -464,6 +591,19 @@
       a.download = `Amara_Living_${activeItem.id}_Spec.txt`;
       a.click();
       showToast('Spec sheet downloaded!');
+    }
+
+    function toggleVisualizerDrawer() {
+      const panel = document.getElementById('visualizer-controls-panel');
+      if (panel) {
+        panel.classList.toggle('collapsed');
+        const icon = document.getElementById('drawer-toggle-icon');
+        if (icon) {
+          icon.className = panel.classList.contains('collapsed') 
+            ? 'fa-solid fa-chevron-up' 
+            : 'fa-solid fa-chevron-down';
+        }
+      }
     }
   </script>
 </body>
