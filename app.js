@@ -177,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProducts('all');
   initFilterButtons();
   updateSampleBagUI();
+  initMobileNav();
 });
 
 // Persona Switcher Logic
@@ -337,7 +338,7 @@ function openProductQuickView(productId) {
   if (!modalContent) return;
   
   modalContent.innerHTML = `
-    <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; align-items: flex-start;">
+    <div class="product-modal-grid">
       <div>
         <img src="${product.image}" style="width: 100%; border-radius: 8px; border: 1px solid var(--glass-border);" alt="${product.title}">
         <div style="margin-top: 16px; background: rgba(255,255,255,0.03); padding: 14px; border-radius: 6px; border: 1px solid var(--glass-border);">
@@ -381,11 +382,11 @@ function openProductQuickView(productId) {
           </tr>
         </table>
         
-        <div style="display: flex; gap: 12px;">
-          <button class="btn btn-gold" style="flex: 1;" onclick="addToSampleBag('${product.id}'); closeModal('product-modal');">
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <button class="btn btn-gold" style="flex: 1 1 200px;" onclick="addToSampleBag('${product.id}'); closeModal('product-modal');">
             + Add to Sample Request
           </button>
-          <button class="btn btn-dark" onclick="window.open('https://wa.me/?text=Inquiry%20regarding%20' + encodeURIComponent('${product.title}'), '_blank')">
+          <button class="btn btn-dark" style="flex: 1 1 120px;" onclick="window.open('https://wa.me/?text=Inquiry%20regarding%20' + encodeURIComponent('${product.title}'), '_blank')">
             <i class="fa-brands fa-whatsapp"></i> Inquiry
           </button>
         </div>
@@ -533,4 +534,58 @@ function showToast(message) {
     toast.style.opacity = '0';
     toast.style.transform = 'translateY(20px)';
   }, 3000);
+}
+
+// Mobile Navigation Drawer Controllers
+function initMobileNav() {
+  const menuButtons = document.querySelectorAll('.mobile-menu-btn');
+  menuButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMobileMenu();
+    });
+  });
+
+  const drawer = document.getElementById('mobile-nav-drawer');
+  if (drawer) {
+    const navLinks = drawer.querySelectorAll('a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        closeMobileMenu();
+      });
+    });
+  }
+
+  // Close when clicking outside drawer
+  document.addEventListener('click', (e) => {
+    const drawer = document.getElementById('mobile-nav-drawer');
+    const isMenuBtn = e.target.closest('.mobile-menu-btn');
+    if (drawer && drawer.classList.contains('active') && !drawer.contains(e.target) && !isMenuBtn) {
+      closeMobileMenu();
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeMobileMenu();
+      document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+    }
+  });
+}
+
+function toggleMobileMenu() {
+  const drawer = document.getElementById('mobile-nav-drawer');
+  if (drawer) {
+    drawer.classList.toggle('active');
+    document.body.style.overflow = drawer.classList.contains('active') ? 'hidden' : '';
+  }
+}
+
+function closeMobileMenu() {
+  const drawer = document.getElementById('mobile-nav-drawer');
+  if (drawer) {
+    drawer.classList.remove('active');
+    document.body.style.overflow = '';
+  }
 }
